@@ -2,9 +2,9 @@
 # Constantes e configurações fixas do estacionamento SmartPark.
 # Por convenção, constantes são escritas em LETRAS MAIÚSCULAS.
 
-NOME_SISTEMA = "SMARTPARK"
+NOME_SISTEMA = "SMARTPARK - Controle de Estacionamentos"
 
-CAPACIDADE_MAXIMA = 20          # quantidade total de vagas
+CAPACIDADE_MAXIMA = 2          # quantidade total de vagas
 TARIFA_POR_HORA = 5.00          # valor cobrado por hora
 HORARIO_ABERTURA = 6            # abrindo às 06h
 HORARIO_FECHAMENTO = 22         # fechando às 22h

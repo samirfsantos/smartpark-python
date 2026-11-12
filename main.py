@@ -1,9 +1,11 @@
 # main.py
 # Menu principal e controle da execução do SmartPark.
-# Versão inicial: estrutura do menu. As funcionalidades serão
-# implementadas continuamentee
 
 import config
+from movimentacao import registrar_entrada, registrar_saida   # fiz assim por conta do que o professor fala no item 7, aí só vai poder chamar diretamente essas duas funcoes
+import financeiro as fin                            # isso é só para importar normal e usar o nome mais curto
+import relatorios as rel                            # isso é só para importar normal e usar o nome mais curto
+
 
 def exibir_menu():
     """Mostra as opções do menu principal."""
@@ -21,16 +23,23 @@ def exibir_menu():
 
 
 def ler_opcao():
-    """Lê a opção do menu. Retorna -1 se o usuário digitar algo que não é número."""
-    try:
-        opcao = int(input("Escolha uma opção: "))
-    except ValueError:
-        print("\n[ERRO] Digite apenas o número da opção.")
-        return -1
-    return opcao
+    """Vai ler a opção do menu. Repete até o usuário digitar um número inteiro."""
+    while True:
+        try:
+            opcao = int(input("Escolha uma opção: "))
+        except ValueError:
+            print("[ERRO] Digite apenas o número da opção.")
+        else:
+            return opcao
 
 
 def main():
+
+    ocupadas = config.OCUPACAO_INICIAL
+    total_entradas = 0
+    total_saidas = 0
+    faturamento = config.FATURAMENTO_INICIAL
+
     executando = True
 
     while executando:
@@ -38,16 +47,41 @@ def main():
         opcao = ler_opcao()
 
         match opcao:
-            case 1 | 2 | 3 | 4 | 5 | 6:
-                print("\n[EM DESENVOLVIMENTO] Funcionalidade ainda não implementada.")
+            case 1:
+                # Só altera os contadores se a entrada foi aceita
+                if registrar_entrada(ocupadas):
+                    ocupadas = ocupadas + 1
+                    total_entradas = total_entradas + 1
+
+            case 2:
+                horas = registrar_saida(ocupadas)
+                # horas = 0 significa saída recusada: nada é alterado
+                if horas > 0:
+                    valor = fin.calcular_valor(horas)
+                    ocupadas = ocupadas - 1
+                    total_saidas = total_saidas + 1
+                    faturamento = faturamento + valor
+                    rel.exibir_comprovante(horas, valor, ocupadas)
+
+            case 3:
+                rel.exibir_vagas(ocupadas)
+
+            case 4:
+                rel.exibir_faturamento(faturamento, total_saidas)
+
+            case 5:
+                rel.exibir_relatorio(total_entradas, total_saidas, ocupadas, faturamento)
+
+            case 6:
+                rel.exibir_tabela_precos()
 
             case 0:
+                rel.exibir_resumo_final(total_entradas, total_saidas, faturamento)
                 print("\nObrigado por utilizar o SmartPark. Até logo!")
                 executando = False
 
-            case _:             # usando para controlar qualquer numero diferente do menu
-                if opcao != -1:
-                    print("\n[ERRO] Opção inválida! Escolha uma opção do menu.")
+            case _:
+                print("\n[ERRO] Opção inválida! Escolha uma opção do menu.")
 
 
 main()
