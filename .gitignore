@@ -1,0 +1,13 @@
+# Arquivos gerados automaticamente pelo Python
+__pycache__/
+*.pyc
+
+# Ambientes virtuais
+venv/
+.venv/
+
+# Configurações de editores e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
