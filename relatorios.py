@@ -1,6 +1,3 @@
-# relatorios.py
-# Exibição de relatórios operacionais.
-# Todas as funções recebem os dados por parâmetro: nenhum contador fica guardado aqui.
 
 import config
 from financeiro import formatar_moeda, calcular_media, calcular_valor
