@@ -78,7 +78,7 @@ def exibir_comprovante(horas, valor, ocupadas):
 
 
 def exibir_resumo_final(entradas, saidas, faturamento):
-
+    #resumo final smartpark
     print("=========RESUMO FINAL SMARTPARK===========")
     print(f"Total de entradas: {entradas}")
     print(f"Total de saidas: {saidas}")
