@@ -5,9 +5,13 @@
 import config
 from financeiro import formatar_moeda, calcular_media, calcular_valor
 
+def aviso_em_desenvolvimento(nome_relatorio):
+    """Aviso padrão :-)"""
+    print(f"\n[EM DESENVOLVIMENTO] {nome_relatorio} ainda não implementado.")
+
 
 def exibir_vagas(ocupadas):
-    """mostrando o resumo de ocupação"""
+    """Mostra como tá a ocupação."""
     disponiveis = config.CAPACIDADE_MAXIMA - ocupadas
     percentual = ocupadas / config.CAPACIDADE_MAXIMA * 100
 
@@ -16,11 +20,18 @@ def exibir_vagas(ocupadas):
     print(f"Vagas ocupadas:     {ocupadas}")
     print(f"Vagas disponíveis:  {disponiveis}")
     print(f"Taxa de ocupação:   {percentual:.0f}%")
+
+    if ocupadas >= config.CAPACIDADE_MAXIMA:
+        print("\nLotado, pega o beco")
+    else:
+        print("\nCabe mais")
+
     print("\n" + "=" * 33)
 
 
+
 def exibir_faturamento(faturamento, saidas):
-    """mostrar faturamento total, as saídas e a média por saída."""
+    """mostra o faturamento total, as saídas e a média por saída."""
     media = calcular_media(faturamento, saidas)
 
     print("\n======= FATURAMENTO =======\n")
@@ -31,7 +42,7 @@ def exibir_faturamento(faturamento, saidas):
 
 
 def exibir_relatorio(entradas, saidas, ocupadas, faturamento):
-    """resumo de todas as movimentações."""
+    """mostra o resumo de todas as movimentações."""
     disponiveis = config.CAPACIDADE_MAXIMA - ocupadas
 
     print("\n====== RELATORIO SMARTPARK ======\n")
@@ -44,7 +55,7 @@ def exibir_relatorio(entradas, saidas, ocupadas, faturamento):
 
 
 def exibir_tabela_precos():
-    """Exibe tarifa e simula valores de 1 até 5 horas."""
+    """mostra a tarifa e simula valores de 1 até 5 horas."""
     print("\n======= TABELA DE PREÇOS =======\n")
     print(f"Tarifa por hora: {formatar_moeda(config.TARIFA_POR_HORA)}")
     print(f"Funcionamento: {config.HORARIO_ABERTURA:02d}h às {config.HORARIO_FECHAMENTO}h")
@@ -58,7 +69,7 @@ def exibir_tabela_precos():
 
 
 def exibir_comprovante(horas, valor, ocupadas):
-    """RF02 - Comprovante simplificado da saída."""
+    """comprovante de saída."""
     print("\n======= COMPROVANTE DE SAÍDA =======\n")
     print(f"Tempo de permanência: {horas} hora(s)")
     print(f"Tarifa por hora:      {formatar_moeda(config.TARIFA_POR_HORA)}")
@@ -68,9 +79,10 @@ def exibir_comprovante(horas, valor, ocupadas):
 
 
 def exibir_resumo_final(entradas, saidas, faturamento):
-    """RF07 - Resumo exibido ao encerrar o sistema."""
+    """resumo exibido ao encerrar o sistema."""
     print("\n======= RESUMO FINAL =======\n")
     print(f"Total de entradas: {entradas}")
     print(f"Total de saídas:   {saidas}")
-    print(f"Faturamento:       {formatar_moeda(faturamento)}")
+    print(f"Faturamento :       {formatar_moeda(faturamento)}")
     print("\n" + "=" * 33)
+
